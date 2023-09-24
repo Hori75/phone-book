@@ -2,6 +2,7 @@
 import styles from '../page.module.css'
 import { ContactView } from "@/component/ContactView";
 import { useContactView } from "@/hooks/useContactView";
+import Link from 'next/link';
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function ViewContact() {
@@ -19,6 +20,7 @@ export default function ViewContact() {
     <main className={styles.main}>
       <div className={styles.header}>
         <h1>View Contact</h1>
+        <Link href="/" className={styles.link}>Back</Link>
       </div>
       <div>
         {data && <ContactView data={data?.contact_by_pk} />}

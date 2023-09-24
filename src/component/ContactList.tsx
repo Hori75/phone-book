@@ -1,13 +1,11 @@
 'use client';
 import styles from '@/app/page.module.css';
 import { ContactListData } from "@/model/ContactListData";
-import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import { useMemo, useState, useEffect } from 'react';
 import { Pagination } from './Pagination/Pagination';
 import { useFavorite } from '@/hooks/useFavorite';
 import { AiFillStar, AiFillCloseCircle } from "react-icons/ai";
-import { useContactDelete } from '@/hooks/useContactDelete';
 
 interface ContactListProps {
   data: ContactListData,

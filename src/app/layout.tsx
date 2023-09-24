@@ -8,11 +8,6 @@ import { useEffect, useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'Phone Book',
-  description: 'View, Update, and Delete your contacts',
-}
-
 export default function RootLayout({
   children,
 }: {

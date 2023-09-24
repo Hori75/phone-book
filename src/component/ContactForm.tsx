@@ -8,6 +8,13 @@ interface ContactFormProp {
   onSubmit: SubmitHandler<Contact>,
 }
 
+const nameValidation = {
+  noSpecialCharacter: (v: string) => {
+    var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    return !v.match(format);
+  }
+}
+
 export const ContactForm = ({ prefillValue, onSubmit }: ContactFormProp) => {
   const {
     register,
@@ -23,13 +30,19 @@ export const ContactForm = ({ prefillValue, onSubmit }: ContactFormProp) => {
   });
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <input aria-invalid={errors.first_name ? "true" : "false"} placeholder="First Name"  {...register("first_name", { required: true })} /><br />
+      <input aria-invalid={errors.first_name ? "true" : "false"} placeholder="First Name"  {...register("first_name", { required: true, validate: nameValidation })} /><br />
       {errors.first_name && errors.first_name.type === "required" && (
         <><span role="alert">This is required</span><br /></>
       )}
-      <input placeholder="Last Name"  {...register("last_name", { required: true })} /><br />
+      {errors.first_name && errors.first_name.type === "noSpecialCharacter" && (
+        <><span role="alert">No special character allowed</span><br /></>
+      )}
+      <input placeholder="Last Name"  {...register("last_name", { required: true, validate: nameValidation })} /><br />
       {errors.last_name && errors.last_name.type === "required" && (
         <><span role="alert">This is required</span><br /></>
+      )}
+      {errors.last_name && errors.last_name.type === "noSpecialCharacter" && (
+        <><span role="alert">No special character allowed</span><br /></>
       )}
       <label>Phones</label><br />
       <div className={styles.phones}>
@@ -47,7 +60,7 @@ export const ContactForm = ({ prefillValue, onSubmit }: ContactFormProp) => {
           </div>
         ))}
       </div>
-      <button type="button" onClick={() => { append({ number: '' }) }}>append</button> <br />
+      <button type="button" onClick={() => { append({ number: '' }) }}>Add Number</button> <br />
       <input type="submit" />
     </form>
   )
